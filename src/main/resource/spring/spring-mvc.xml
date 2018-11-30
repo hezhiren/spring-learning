@@ -15,9 +15,18 @@
 	<!-- 自动搜索需要注入的类 -->
 	<context:component-scan base-package="cn.hzr.jndi.controller" />
 
+	<bean id="utf8Charset" class="java.nio.charset.Charset"
+		  factory-method="forName">
+		<constructor-arg value="UTF-8"/>
+	</bean>
 	<bean id="requestMappingHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
-			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
+			<list>
+				<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<constructor-arg ref="utf8Charset"/>
+				</bean>
+			</list>
 		</property>
 	</bean>
 
@@ -31,7 +40,8 @@
         <property name="suffix" value=".jsp"/>
         <property name="order" value="1"/>
 	</bean>
-	
+
+	<mvc:annotation-driven/>
 	<!-- MVC配置 end********************************************************************************************************* -->
 
 </beans>
