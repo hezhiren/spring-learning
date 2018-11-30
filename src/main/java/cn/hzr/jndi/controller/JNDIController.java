@@ -24,9 +24,9 @@ public class JNDIController {
     @ResponseBody
     public JSONObject testConnect(@PathVariable String name) throws Exception{
         User user = userDao.findUserByName(name);
-        System.out.println(user.toString());
-        return JSONObject.parseObject(user.toString());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("user", user);
+        return jsonObject;
     }
-
 
 }

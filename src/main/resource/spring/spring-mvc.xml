@@ -14,7 +14,13 @@
 	<!-- MVC配置 start********************************************************************************************************* -->
 	<!-- 自动搜索需要注入的类 -->
 	<context:component-scan base-package="cn.hzr.jndi.controller" />
-	
+
+	<bean id="requestMappingHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
+		</property>
+	</bean>
+
 	<!-- 启用Spring MVC 注解 -->
     <context:annotation-config />
 
